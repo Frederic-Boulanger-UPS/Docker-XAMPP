@@ -1,0 +1,37 @@
+#!/bin/sh
+if [ $# -lt 1 ]
+then
+  echo "# Usage $0 (start|stop) [directory]"
+  exit 1
+fi
+case $1 in
+  start) cmd="start" ;;
+  stop) cmd="stop" ;;
+  *) echo "# Unknown command \"$1\"";
+     echo "# Usage $0 (start|stop) [directory]";
+     exit 1 ;;
+esac
+
+httpdir="."
+if [ $# -gt 1 ]
+then
+  httpdir="$2"
+fi
+
+if [ "$cmd" == "start" ]
+then
+  httpdir=`realpath "$httpdir"`
+  echo "# Starting XAMPP in $httpdir"
+  docker run --rm -d \
+             -p 80:80 -p 443:443 \
+             -v "$httpdir":/opt/lampp/htdocs:rw \
+             --name xampp-server \
+             fredblgr/ubuntu-xampp:2020
+  sleep 1
+  open "http://localhost" || xdg-open "http://localhost" || echo "http://localhost"
+else
+  echo "# Stopping XAMPP server"
+  docker stop xampp-server
+fi
+
+exit 0
