@@ -21,14 +21,15 @@ fi
 if [ "$cmd" == "start" ]
 then
   httpdir=`realpath "$httpdir"`
+  port=80
   echo "# Starting XAMPP in $httpdir"
   docker run --rm -d \
-             -p 80:80 -p 443:443 \
+             -p $port:80 \
              -v "$httpdir":/opt/lampp/htdocs:rw \
              --name xampp-server \
              fredblgr/ubuntu-xampp:2020
   sleep 1
-  open "http://localhost" || xdg-open "http://localhost" || echo "http://localhost"
+  open "http://localhost:$port" || xdg-open "http://localhost:$port" || echo "http://localhost:$port"
 else
   echo "# Stopping XAMPP server"
   docker stop xampp-server
