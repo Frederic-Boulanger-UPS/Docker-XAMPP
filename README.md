@@ -13,7 +13,7 @@ The XAMPP installer for Linux (xampp-linux-x64-7.4.11-0-installer.run) is not in
 Typical usage is:
 
 ```
-docker run --rm -d -p 80:80 -o 443:443 -v $PWD:/opt/lampp/htdocs:rw --name ubuntu-xampp fredblgr/ubuntu-xampp:2020
+docker run --rm -d -p 80:80 -o 443:443 -v $PWD:/opt/lampp/htdocs:rw --name ubuntu-xampp fredblgr/ubuntu-xampp:2026
 ```
 
 Very Quick Start
@@ -27,7 +27,7 @@ Quick Start
 Run the docker container and open your browser on localhost.
 
 ```
-docker run -p 80:80 -p 443:443 fredblgr/ubuntu-xampp:2020
+docker run -p 80:80 -p 443:443 fredblgr/ubuntu-xampp:2026
 ```
 
 Browse http://localhost/

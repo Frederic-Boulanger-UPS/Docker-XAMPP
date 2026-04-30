@@ -1,4 +1,7 @@
 #!/bin/sh
+REPO=fredblgr/ubuntu-xampp
+TAG=2026
+
 if [ $# -lt 1 ]
 then
   echo "# Usage $0 (start|stop) [directory]"
@@ -23,11 +26,12 @@ then
   httpdir=`realpath "$httpdir"`
   port=80
   echo "# Starting XAMPP in $httpdir"
-  docker run --rm -d \
-             -p $port:80 \
-             -v "$httpdir":/opt/lampp/htdocs:rw \
+  docker run --rm --detach \
+             --platform linux/x86_64 \
+             --publish $port:80 \
+             --volume "$httpdir":/opt/lampp/htdocs:rw \
              --name xampp-server \
-             fredblgr/ubuntu-xampp:2020
+             ${REPO}:${TAG}
   sleep 1
   open "http://localhost:$port" || xdg-open "http://localhost:$port" || echo "http://localhost:$port"
 else
